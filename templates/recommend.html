@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Recommender System</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      background-color: white;
+    }
+    :root {
+      --color: #780000;
+    }
+    body {
+      height: 100vh;
+      background-size: 100% 240px;
+      background-position: 0 510px;
+      font-family: arial;
+    }
+    header {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      height: 60px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header .navbar {
+      transition: 0.3s linear;
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+    }
+    header .logo > img {
+      height: 50px;
+      margin: 0 10px;
+    }
+    header .navbar ul {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      width: 600px;
+      justify-content: space-around;
+    }
+    header .navbar li {
+      font-size: 18px;
+    }
+    header .navbar li a {
+      text-decoration: none;
+      color: black;
+    }
+    header .navbar ul li:hover {
+      color: var(--color);
+      cursor: pointer;
+    }
+    input {
+      display: none;
+    }
+    label {
+      z-index: 2;
+      position: absolute;
+      top: 30px;
+      right: 10px;
+      cursor: pointer;
+    }
+    label span {
+      display: block;
+      height: 3px;
+      width: 30px;
+      background: var(--color);
+      margin: 5px 0;
+      transition: 0.3s;
+    }
+    label span:nth-child(1) {
+      margin-left: 20px;
+    }
+    label span:nth-child(2) {
+      width: 50px;
+    }
+    #toggle:checked ~ label > span:nth-child(1) {
+      background: #fff;
+      transform: rotateZ(45deg);
+      width: 30px;
+      margin-top: 10px;
+    }
+    #toggle:checked ~ label > span:nth-child(2) {
+      background: #fff;
+      transform: rotateZ(-45deg);
+      width: 30px;
+      margin-top: -8px;
+      margin-left: 19px;
+    }
+    #toggle:checked ~ header .navbar {
+      left: 0;
+    }
+    .container {
+      padding: 200px;
+    }
+    .container h1 {
+      font-size: 100px;
+      text-align: center;
+    }
+    .container .content {
+        width: 25%;
+        float: left;
+        padding: 30px;
+      }
+
+    @media (max-width: 978px) {
+      label {
+        display: block;
+      }
+      header .navbar {
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 100%;
+        background: var(--color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      header .navbar ul {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column wrap;
+      }
+      header .navbar ul li {
+        margin: 10px 0;
+        font-size: 40px;
+        color: #fff;
+      }
+      header .navbar ul li:hover {
+        background: #fff;
+        border-radius: 50px;
+        padding: 0 50px;
+        transition: 0.3s;
+      }
+      header {
+        z-index: 1;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 470px) {
+      header {
+        justify-content: flex-start;
+      }
+    }
+    @media (max-width: 380px) {
+      header .logo h2 {
+        font-size: 15px;
+      }
+      header .logo > img {
+        height: 35px;
+      }
+    }
+    .text-white {
+      color: black;
+    }
+    .pages__home__hero__title {
+      color: #111;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 43px;
+      max-width: 600px;
+      margin: 0px;
+    }
+    .pages__home__hero__byline {
+      color: #4e4e4e;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 800px;
+    }
+    .her {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <input type="checkbox" id="toggle" />
+    <label for="toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <header>
+      <div class="logo">
+        <img
+          src="https://thumbs.dreamstime.com/z/open-book-logo-inspiration-design-isolated-white-background-126156074.jpg"
+          alt=""
+        />
+        <h2>Easy Recommendation</h2>
+      </div>
+      <div class="navbar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/top50">Top 50</a></li>
+          <li><a href="/recommend">Recommend</a></li>
+        </ul>
+      </div>
+    </header>
+    <div class="container">
+          <h1 class="pages__home__hero__title" style="font-size: 50px">
+            Find books you'll love!
+          </h1>
+          <br />
+          <h2 class="pages__home__hero__byline">
+            "Enter a book you like and the site will analyse our huge database
+            of real readers' favorite books to provide book recommendations and
+            suggestions for what to read next."
+          </h2>
+          <br /><br />
+          
+          <form action="/recommend_books" method="post">
+            <input name="user_input" type="text" class="form-control" /><br />
+            <div class="her">
+              <input type="submit" class="btn btn-lg btn-success" />
+            </div>
+          </form>
+
+        {% if data %} {% for i in data %}
+        <div class="content">
+          <div class="card">
+            <div class="card-body">
+              <img class="card-img-top" src="{{i[2]}}" />
+              <p class="text-white">{{i[0]}}</p>
+              <h4 class="text-white">{{i[1]}}</h4>
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
